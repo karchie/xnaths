@@ -47,8 +47,8 @@ main = withSocketsDo $ do
   jsid <- getEnv "JSESSIONID"
   req' <- parseUrl url
   let req = addJSESSIONID req' (C8.pack jsid)
-  let jsidreq = addToPath req "/data/projects"
-  eitherResp <- E.try (withManager $ http jsidreq)
+  let projreq = addToPath req "/data/projects"
+  eitherResp <- E.try (withManager $ http projreq)
   case eitherResp of
     Left (StatusCodeException s _ _) -> putStrLn (show s)
     Right resp -> C.runResourceT $ do 
